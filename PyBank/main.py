@@ -8,40 +8,32 @@ import os
 import csv
 
 #  Lists to store data
-totalMonth = 0             #  number of months
-totalNet = 0               #  The total net amount of "Profit/Losses" over the entire period
-greatestIncreaseM = ""     #  keep track of the greatest increase month
-greatestDecreaseM = ""     #  keep track of the greatest decrease month
-greatestIncrease = 0       #  keep track of the greatest increase amount 
-greatestDecrease = 0       #  keep track of the greatest decrease amount
-
+# Lists to store data
+date = []
+profit = []
 
 
 # Open the budget_data csv file
-budget_csv = os.path.join("budget_data.csv")
+#budget_csv = os.path.join("budget_data.csv")
 
-with open(budget_csv, newline="") as csvfile:
-    next (csvfile)   #  skip the first header row
+with open("budget_data.csv", newline="") as csvfile:
+    
     csvreader = csv.reader(csvfile, delimiter=",")
+    next (csvreader)   #  skip the first header row
     for row in csvreader:
-        totalMonth = totalMonth + 1                # Track total month
-        totalNet = totalNet + int(row[1])          # Track total net amount
-        if greatestIncrease < int(row[1]):
-            greatestIncrease = int(row[1])
-            greatestIncreaseM = row[0]
-        if greatestDecrease > int(row[1]):
-            greatestDecrease = int(row[1])
-            greatestDecreaseM = row[0]             
-         
+        date.append(row[0])   #  get the dates into list
+        profit.append(int(row[1])) #  get the profit into list 
         
+#  calculate total profit
+
 
 # print the output in terminal
 print("Financial Analysis")
 print("---------------------------------")
-print("Total Month: " + str(totalMonth))
-print("Total: $" + str(totalNet))
-print("Greatest Increase in Profit: " + greatestIncreaseM + " " + "($" + str(greatestIncrease) + ")")
-print("Greatest Decrease in Profit: " + greatestDecreaseM + " " + "($" + str(greatestDecrease) + ")")
+print("Total Month: " + str(len(profit)))
+print("Total: $" + str(sum(profit)))
+print("Greatest Increase in Profits: " + date[profit.index(max(profit))] + " ($" + str(max(profit)) + ")")
+
 
 
 #  Open the output file and write to the file
@@ -52,10 +44,10 @@ with open(output_file, "w", newline="") as datafile:
     # Write the header row
     writer.writerow(["Financial", "Analysis"])
     writer.writerow(["-------------------------------------------"]) 
-    writer.writerow(["Total Month:" , str(totalMonth)])
-    writer.writerow(["Total:" , "$" + str(totalNet)])
-    writer.writerow(["Greatest Increase in Profits: ", greatestIncreaseM, "($" + str(greatestIncrease) + ")"])
-    writer.writerow(["Greatest Decrease in Profits: ", greatestDecreaseM, "($" + str(greatestDecrease) + ")"])
+    writer.writerow(["Total Month:" , str(len(profit))])
+    writer.writerow(["Total:" , "$" + str(sum(profit))])
+    writer.writerow(["Greatest Increase in Profits:", str(date[profit.index(max(profit))]), "($" + str(max(profit)) + ")"])
+  
 
 
 
