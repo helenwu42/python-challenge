@@ -42,16 +42,32 @@ with open("election_data.csv", newline="") as csvfile:
     for x in range(len(value)):
         percentage.append(round(((value[x]/sum(value))*100), 3))
 
-    #  find the winnervotes
-    winnervotes= max(value)
-  
+ 
 # print the output in terminal
 print("Election Results")
 print("---------------------------------")
 print("Total Votes: " + str(len(vote)))
 print("---------------------------------")
 for i in range(0, 4):
-    print(str(key[i]) + ":   " + str(percentage[i]) + "%   " + "(" + str(value[i]) + ")")   
+    print(str(key[i]) + ":   " + str(percentage[i]) + "%   " + "(" + str(value[i]) + ")")
+print("---------------------------------")
+print("Winner:  " + max(uniqueC, key=uniqueC.get))
+print("---------------------------------")
 
+#  Open the output file and write to the file
+output_file = os.path.join("election_data_output.csv")
 
+with open(output_file, "w", newline="") as datafile:
+    writer = csv.writer(datafile)
+
+    # writer.writerow(["Total Month:" , str(len(profit))])
+    writer.writerow(["Election", "Results"])
+    writer.writerow(["---------------------------------"])
+    writer.writerow(["Total Votes: " , str(len(vote))])
+    writer.writerow(["---------------------------------"])
+    for i in range(0, 4):
+        writer.writerow([str(key[i]) + ":" , str(percentage[i]) + "%" ,  str(value[i])])
+    writer.writerow(["---------------------------------"])
+    writer.writerow(["Winner:  " , max(uniqueC, key=uniqueC.get)])
+    writer.writerow(["---------------------------------"])
 
