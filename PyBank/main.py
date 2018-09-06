@@ -52,8 +52,8 @@ with open(output_file, "w", newline="") as datafile:
     writer.writerow(["Total Month:" , str(len(profit))])
     writer.writerow(["Total:" , "$" + str(sum(profit))])
     writer.writerow(["Average Change: " , "$" + str(round(sum(diff)/(len(profit)-1), 2))])
-    writer.writerow(["Greatest Increase in Profits:", str(date[profit.index(max(profit))]), "($" + str(max(profit)) + ")"])
-    writer.writerow(["Greatest Decrease in Profits:", str(date[profit.index(min(profit))]), "($" + str(min(profit)) + ")"])
+    writer.writerow(["Greatest Increase in Profits:", str(date[profit.index(max(profit))]), "$" + str(max(profit))])
+    writer.writerow(["Greatest Decrease in Profits:", str(date[profit.index(min(profit))]), "$" + str(min(profit))])
   
 
 
